@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Mostafa Tech - ألعاب أكشن ورعب وأونلاين ومجانية للـ PC والموبايل مع روابط رسمية.">
+<title>Mostafa Tech | عالم الألعاب</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#070a12;color:#fff;font-family:Arial,sans-serif}
+header{padding:55px 20px;text-align:center;background:linear-gradient(135deg,#111b3a,#241044)}
+header .icon{font-size:65px}h1{font-size:48px;margin:5px 0}header p{color:#bfc9df;font-size:18px}
+nav{position:sticky;top:0;z-index:5;background:#0d1322cc;backdrop-filter:blur(10px);padding:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+nav button{border:0;border-radius:22px;padding:10px 16px;background:#202d49;color:#fff;cursor:pointer}nav button:hover{background:#5b63e9}
+.container{max-width:1150px;margin:auto;padding:30px 18px}.search{width:100%;padding:15px;border:1px solid #2b3855;background:#101827;color:#fff;border-radius:14px;margin-bottom:25px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:#101827;border:1px solid #25344f;border-radius:20px;padding:20px;box-shadow:0 8px 25px #0005}.card h2{margin:12px 0 8px}.card p{color:#aebbd0;line-height:1.55}.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:11px;background:#25345b;padding:6px 9px;border-radius:20px}
+.actions{display:flex;gap:8px;margin-top:18px}.btn{flex:1;text-align:center;text-decoration:none;padding:11px;border-radius:11px;background:#5965f2;color:#fff;font-weight:bold}.btn.free{background:#178b5d}.btn.disabled{background:#303b52}
+footer{text-align:center;padding:40px 15px;color:#73809a}
+</style>
+</head>
+<body>
+<header><div class="icon">🎮</div><h1>Mostafa Tech</h1><p>عالم الألعاب — روابط رسمية للتحميل والشراء</p></header>
+
+<nav>
+<button onclick="filterGames('all')">الكل</button>
+<button onclick="filterGames('action')">🔥 أكشن</button>
+<button onclick="filterGames('horror')">👻 رعب</button>
+<button onclick="filterGames('online')">🌐 أونلاين</button>
+<button onclick="filterGames('free')">🆓 مجاني</button>
+<button onclick="filterGames('pc')">💻 PC</button>
+<button onclick="filterGames('mobile')">📱 موبايل</button>
+</nav>
+
+<main class="container">
+<input id="search" class="search" placeholder="🔎 ابحث عن لعبة..." oninput="render()">
+<div id="grid" class="grid"></div>
+</main>
+
+<footer>© 2026 Mostafa Tech — روابط الألعاب الخارجية رسمية</footer>
+
+<script>
+const games=[
+{name:"Resident Evil Requiem",cat:["action","horror","pc"],desc:"رعب وبقاء وأكشن من سلسلة Resident Evil.",store:"Epic Games",url:"https://store.epicgames.com/en-US/p/resident-evil-requiem"},
+{name:"Hell Let Loose",cat:["action","online","pc"],desc:"تصويب وحروب جماعية أونلاين.",store:"Epic Games",url:"https://store.epicgames.com/en-US/"},
+{name:"Beast of Reincarnation",cat:["action","pc"],desc:"أكشن وRPG في عالم مستقبلي.",store:"Steam",url:"https://store.steampowered.com/explore/upcoming/"},
+{name:"MARVEL Tōkon: Fighting Souls",cat:["action","online","pc"],desc:"لعبة قتال بشخصيات من Marvel.",store:"Steam",url:"https://store.steampowered.com/explore/upcoming/"},
+{name:"NTE: Neverness to Everness",cat:["action","online","free","pc","mobile"],desc:"لعبة أكشن وعالم مفتوح مع توفر مجاني.",store:"Epic Games",url:"https://store.epicgames.com/en-US/"},
+{name:"ألعاب مجانية جديدة",cat:["free","pc","mobile"],desc:"اكتشف مجموعة أكبر من الألعاب المجانية.",store:"Epic Games",url:"https://store.epicgames.com/discover/discover-something-new"}
+];
+let current="all";
+function filterGames(c){current=c;render()}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=games.filter(g=>(current==="all"||g.cat.includes(current))&&g.name.toLowerCase().includes(q));
+ document.getElementById("grid").innerHTML=list.map(g=>`
+ <article class="card">
+  <div class="tags">${g.cat.map(x=>`<span class="tag">${x.toUpperCase()}</span>`).join("")}</div>
+  <h2>${g.name}</h2><p>${g.desc}</p>
+  <div class="actions"><a class="btn" href="${g.url}" target="_blank" rel="noopener">🔗 ${g.store}</a></div>
+ </article>`).join("")||"<p>مفيش نتائج 😅</p>";
+}
+render();
+</script>
+</body>
+</html>
